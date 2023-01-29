@@ -12,4 +12,4 @@ app.get("/", async () => {
   return habits;
 });
 
-app.listen({ port: 3333 });
+app.listen({ port: 3333 }).then(() => console.log("HTTP server is running"));
