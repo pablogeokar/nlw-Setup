@@ -1,11 +1,16 @@
-import Fastify from "fastify";
-import cors from "@fastify/cors";
+import express from "express";
+import cors from "cors";
 
-import { appRoutes } from "./routes";
+import appRoutes from "./routes";
 
-const app = Fastify();
+const app = express();
 
-app.register(cors);
-app.register(appRoutes);
+app.use(cors());
+app.use(express.json());
+app.use(appRoutes);
 
-app.listen({ port: 3333 }).then(() => console.log("HTTP server is running"));
+app.use("*", (req, res) =>
+  res.status(404).json({ error: "Recurso não encontrado" })
+);
+
+app.listen(3333, () => console.log("[HTTP] is running"));
